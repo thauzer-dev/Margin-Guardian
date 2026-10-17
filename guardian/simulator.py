@@ -39,3 +39,26 @@ def simulate(p, c, q, t=0, m=3000, goal="gross"):
         reference_price=(c * 10000 + denominator - 1) // denominator,
         version=VERSION,
     )
+
+
+def price_for_amount(p, c, q, t=0, m=3000, goal="gross", *, amount, kind="revenue"):
+    """Menor preço em centavos que atinge o total, com comissão arredondada."""
+    if kind not in ("revenue", "channel"):
+        raise ValueError("Escolha receita líquida ou resultado pós-comissão.")
+    integer(amount, "Valor desejado", 1 if kind == "revenue" else -100_000_000_000, 100_000_000_000)
+    simulate(p, c, q, t, m, goal)
+    if q == 0:
+        raise ValueError("Informe volume maior que zero para definir um valor total.")
+    low, high = 1, min(100_000_000, 100_000_000_000 // q)
+    def value(price):
+        return simulate(price, c, q, t, m, goal)[kind]
+    if not value(low) <= amount <= value(high):
+        raise ValueError("Valor desejado fora do intervalo alcançável com estas premissas.")
+    while low < high:
+        mid = (low + high) // 2
+        if value(mid) >= amount:
+            high = mid
+        else:
+            low = mid + 1
+    achieved = value(low)
+    return dict(price=low, achieved=achieved, difference=achieved-amount)

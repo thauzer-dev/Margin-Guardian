@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 
 from guardian.data import generate, validate as validate_data
+from guardian.synthetic import generate_daily
 from guardian.engine import snapshot, target_for, target_index
 from guardian.narrative import (
     ACTIONS,
@@ -42,7 +43,7 @@ def build():
     snap["raw"] = dict(products=data["products"], purchases=data["purchases"],
                        sales=[{**r, "target_bps": target_for(data, r["sku"], r["date"], index=targets)} for r in rows],
                        issues=issues, history_start=data["history_start"], as_of=data["as_of"],
-                       rules=data["rules"])
+                       rules=data["rules"], targets=data["targets"])
     snap["history_note"] = data["synthetic_history"]
     snap["prepared_responses"] = prepared["responses"]
     snap["narrative_text"] = TEXT
@@ -68,10 +69,28 @@ def build():
         + ";\n",
         encoding="utf-8",
     )
+    daily = generate_daily()
+    daily_targets = target_index(daily)
+    daily_rows, daily_issues = validate_data(daily)
+    daily_snap = {**snap, "prepared_responses": [],
+        "ai_provenance": {"mode": "rules", "live_api": False, "prompt_version": PROMPT_VERSION}, "source": {
+        "products": len(daily["products"]), "sales": len(daily["sales"]),
+        "purchases": len(daily["purchases"])},
+        "history_note": daily["synthetic_history"], "dataset_kind": "daily",
+        "dataset_hash": hashlib.sha256(json.dumps(daily, sort_keys=True).encode()).hexdigest(),
+        "raw": {**daily, "issues": daily_issues, "sales": [
+            {**r, "target_bps": target_for(daily, r["sku"], r["date"], index=daily_targets)}
+            for r in daily_rows]}}
+    (ROOT / "dist/daily-data.js").write_text(
+        "window.GUARDIAN_DAILY=" + json.dumps(daily_snap, ensure_ascii=False, separators=(",", ":")) + ";\n",
+        encoding="utf-8")
     log = dict(
         prompt_version=PROMPT_VERSION,
+        prepared_prompt_version=prepared["provenance"]["prompt_version"],
         prepared_verified=verified,
         mode="offline-prepared",
+        prepared_dataset_kind="legacy-didactic",
+        default_dataset_kind="synthetic-daily-v1",
         live_api=False,
         dataset_hash=snap["dataset_hash"],
     )

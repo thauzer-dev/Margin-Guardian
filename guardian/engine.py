@@ -260,6 +260,7 @@ def analyze(data, start, end):
         items.append(
             dict(
                 **product,
+                reference_complete=complete,
                 **a,
                 purchase=purchase,
                 alerts=alerts,

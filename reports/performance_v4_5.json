@@ -1,0 +1,22 @@
+{
+  "version": "4.5",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+  "python": "3.12.14",
+  "input_sales": 50000,
+  "products": 20,
+  "repetitions": 3,
+  "python_analyze_ms": [
+    147.6332070000126,
+    141.28704199998765,
+    144.61805199999844
+  ],
+  "python_median_ms": 144.61805199999844,
+  "js_create_and_analyze_ms": [
+    47.61333300000001,
+    36.36277899999999,
+    38.03411
+  ],
+  "js_median_ms": 38.03411,
+  "browser_render_measured": false,
+  "note": "Bases equivalentes em tamanho, ordens de replicação diferentes. Python inclui validação por análise; JS inclui criação do índice e análise, sobre linhas já validadas. Não é comparação direta entre linguagens nem teste de carga concorrente."
+}

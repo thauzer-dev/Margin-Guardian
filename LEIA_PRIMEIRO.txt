@@ -1,25 +1,18 @@
-MARGIN GUARDIAN AI — SIMPLIFICADO v4.3.1
+MARGIN GUARDIAN — v4.5
 
-1. EXTRAIA TODO O ZIP para uma pasta.
-2. Abra ABRIR_DEMONSTRACAO.html no navegador.
-   Ou clique em iniciar_windows.bat.
-3. Não precisa instalar bibliotecas nem executar Python para usar a demo.
+1. EXTRAIA TODO O ZIP.
+2. Abra ABRIR_DEMONSTRACAO.html ou iniciar_windows.bat.
+3. Mantenha a pasta dist junto dos iniciadores.
 
-Mantenha a pasta dist junto dos iniciadores. Não abra de dentro do ZIP.
-Se o HTML não abrir: botão direito -> Abrir com -> Edge, Chrome ou Firefox.
+Não precisa instalar bibliotecas nem executar Python para abrir.
+Se não abrir, use botão direito no HTML > Abrir com > seu navegador.
 
-REVISÃO: regras de alerta, integridade de compras, narrativas completas,
-severidade sem meta e desempenho.
+NOVO: base diária sintética, leitura executiva, cascatas e visuais analíticos,
+importação local de CSV, conciliação e cenários salvos no navegador.
+Use examples/importacao para experimentar com totais de conferência.
 
-RECURSOS: datas Entre, busca de SKU, categoria em cascata, Essencial/Especial,
-filtros compartilhados e referências 3M/ano anterior sempre visíveis.
+Sem IA ao vivo. Explicações por regras e números rastreáveis.
+Guia completo: docs/GUIA_ATUAL.md. Resumo: README.md.
+Pendências e resultados de testes: reports/VALIDACAO.md.
 
-DADOS FICTÍCIOS: 01/01/2025 a 13/10/2026. Sem importação de dados próprios.
-IA: amostras preparadas e regras verificáveis; nenhuma geração ao vivo.
-
-Detalhes: README.md, docs/GUIA_V4_3.md e docs/AUDITORIA_V4_3_1.md.
-Método e limites: dist/projeto.html.
-Python opcional: python iniciar.py.
-
-A execução nativa Windows e a aparência em seu navegador precisam ser
-conferidas no seu dispositivo; os testes de código estão em reports/.
+Windows nativo e aparência no seu navegador ainda precisam de conferência.

@@ -4,22 +4,33 @@ Não aceita prosa arbitrária. A barreira verifica semântica finita, IDs e per�
 Ela não prova causalidade nem valida toda linguagem natural.
 """
 
-PRIORITY = ("negative", "target", "cost", "price")
+PRIORITY = ("negative", "channel_loss", "target", "cost", "price", "history", "year", "on_target")
 
-PROMPT_VERSION = "evidence-enums-v1"
+PROMPT_VERSION = "evidence-enums-v2"
 POLICY = {
+    "channel_loss": ("channel_pressure", "channel_result", "review_channel"),
+    "history": ("history_comparison", "historical_context", "inspect_history"),
+    "year": ("year_comparison", "annual_context", "inspect_history"),
+    "on_target": ("target_met", "within_target", "monitor"),
     "cost": ("cost_pressure", "coincidence", "review_purchase"),
     "negative": ("negative_margin", "recorded_result", "simulate_price"),
     "target": ("below_target", "target_gap", "simulate_price"),
     "price": ("price_drop", "observed_price", "review_discount"),
 }
 TEXT = {
+    "channel_result": "O lucro bruto não cobre a comissão registrada das linhas elegíveis. Resultado pós-comissão não é lucro líquido: faltam impostos, frete e demais despesas.",
+    "historical_context": "A referência reúne três meses civis completos anteriores ao mês inicial. A diferença de margem descreve períodos com composição e duração possivelmente diferentes; não isola uma causa.",
+    "annual_context": "A comparação anual usa as datas correspondentes do ano anterior e o mesmo SKU. Calendário e composição podem mudar; a variação não comprova uma tendência futura.",
+    "within_target": "As linhas elegíveis cobertas atendem à meta de margem bruta no recorte. Isso não garante rentabilidade após todas as despesas nem resultado futuro.",
     "coincidence": "A alta de compra pressiona a margem teórica com preço constante. Não demonstra, sozinha, mudança no CMV das vendas.",
     "recorded_result": "O CMV registrado supera a receita das linhas elegíveis. O cálculo descreve essas vendas; não prevê resultados futuros.",
     "target_gap": "O resultado elegível fica abaixo da meta definida. O gap não representa perda realizada nem recuperação garantida.",
     "observed_price": "O preço líquido observado caiu. Descontos só podem ser atribuídos quando registrados na origem.",
 }
 ACTIONS = {
+    "review_channel": "Conferir a base de comissão e testar uma meta pós-comissão no simulador.",
+    "inspect_history": "Revisar preço, CMV e composição das vendas nas duas janelas antes de atribuir a variação a uma causa.",
+    "monitor": "Acompanhar compras, descontos e comissão para verificar se a margem se mantém.",
     "review_purchase": "Conferir a compra e testar alternativas de custo e preço.",
     "simulate_price": "Simular preço, comissão e volume antes de decidir.",
     "review_discount": "Revisar descontos registrados e testar o preço líquido.",
@@ -44,6 +55,8 @@ def facts_for(item, period):
                     revenue=cur["eligible_revenue"],
                 ),
             )
+        if cur["gross"] >= 0 and cur["gross"] - cur["commission"] < 0:
+            put("channel_loss", dict(gross=cur["gross"], commission=cur["commission"], channel=cur["gross"]-cur["commission"]))
         if cur["gap"]:
             put(
                 "target",
@@ -72,6 +85,14 @@ def facts_for(item, period):
                     discount=cur["discount"],
                 ),
             )
+    if cur["eligible_count"] and cur["margin"] is not None:
+        for kind, key in (("history", "three"), ("year", "year")):
+            ref = item.get(key, {})
+            if item.get("reference_complete", {}).get(key) and ref.get("margin") is not None:
+                put(kind, dict(margin=cur["margin"], reference=ref["margin"], delta=cur["margin"]-ref["margin"], coverage=ref["coverage"]))
+        if (cur["coverage"] == 1 and cur["target_revenue"] == cur["eligible_revenue"]
+                and cur["target_revenue"] > 0 and cur["gap"] == 0 and cur["margin"] >= 0):
+            put("on_target", dict(margin=cur["margin"], target=cur["target_value"]/cur["target_revenue"], gross=cur["gross"]))
     return facts
 
 

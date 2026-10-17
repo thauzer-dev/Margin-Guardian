@@ -1,21 +1,31 @@
-# Validação v4.3.1 — 14/10/2026
+# Validação executada — v4.5
 
-Resultado efetivamente executado em Linux, Python 3.12.14 e Node 24.19.0. Os números abaixo incluem casos dentro dos testes; não devem ser somados como testes independentes.
+Registro do ambiente: 2026-10-17 (Linux, Python 3.12.14).
 
-- **82 testes Python/API aprovados.**
-- **16 vetores** compartilhados de simulação e **105 combinações** de agregação JS/Python.
-- **10 intervalos arbitrários**, cobrindo **200 pares intervalo/SKU**, quatro janelas por par: atual, anterior, 3M e ano anterior. Confronto de valores monetários, margens, evidências, alertas, compras e premissas.
-- **180 decomposições filtradas** confrontadas com Python e reconciliadas à variação total.
-- **32 verificações DOM/eventos** aprovadas: busca, teclado, filtros em cascata, datas, persistência, abas, histórico incompleto e simulador.
-- **12 fixtures adversariais de narrativa** e **3 amostras preparadas** verificadas. Não é benchmark de LLM.
-- `dist/demo-data.js`: **578.083 bytes**. Snapshots mensais duplicados removidos do payload; sem chamadas remotas na abertura.
+- 100 testes Python/API aprovados.
+- 85 verificações DOM/eventos aprovadas: 67 regressões e 18 verificações da revisão.
+- 16 vetores de simulação, 105 cenários de agregação e 10 intervalos / 200 pares intervalo-SKU, com 180 decomposições filtradas da base didática.
+- Paridade adicional da base diária: 20 SKUs × quatro janelas × dez campos.
+- 15 verificações Node de CSV, qualidade, persistência de desvio e propriedades financeiras; executadas dentro de um teste Python.
+- Propriedades: decomposição em 80 subconjuntos × duas referências; menor preço para 100 alvos em dois tipos de total.
+- 12 casos controlados da barreira de narrativa e três amostras antigas verificadas. Não são avaliações de um LLM ao vivo.
 
-Relatório estruturado: `validation.json`. Proveniência: `ai_provenance.json`. Reproduzir com `python verificar.py` (Node necessário; teste DOM requer linkedom ou `GUARDIAN_DOM_MODULE`).
+As contagens de casos internos são subconjuntos das suítes, não devem ser somadas como testes independentes. Todos os scripts de produção passaram pela checagem sintática do Node. O verificador regenera dados e manifesto SHA-256.
 
-Foram acrescentados 23 testes Python/API e uma verificação DOM em relação à v4.3. Incluem regras de custo parametrizadas, precedência independente da ordem do JSON, fatos complementares, IDs globais de compra, erros de campos, metas ausentes/parciais, limite de materialidade, ordenação cronológica, entrada/saída de SKUs, UTF-8 sob padrão simulado CP1252 e Host/Origin.
+## Fluxos novos cobertos
 
-Medição comparativa em `performance_v4_3_1.json`: 50.000 vendas sintéticas, 20 SKUs, mediana de três execuções de `analyze`: 646,96 ms na v4.3 e 279,11 ms na v4.3.1 (2,32× nesta medição). Agregados financeiros e premissas comparados são iguais. Não é teste de abertura nem teste de carga empresarial.
+Base diária inicial e troca de base, classificações nova/crônica, fila por critério, visuais analíticos sem coordenadas NaN, granularidade automática/diária, importação de quatro arquivos com mapeamento, conciliação antes de aplicar, declaração de cobertura, manutenção da base após falha, limites do atalho de datas, salvamento/restauração/exclusão de cenários e recusa de cenário de outra base.
 
-## Limites da verificação
+Casos de integridade: venda duplicada global, compra duplicada impedindo comparação remanescente, CMV parcial, devolução, cancelamento, unidade incompatível, número fora do contrato, metas sobrepostas, identificadores inseguros e neutralização de fórmula CSV.
 
-Não houve execução nativa Windows nem teste visual em navegador real. Os testes DOM exercitam estrutura e eventos, não layout, navegador móvel, calendário nativo ou leitor de tela. O tempo da suíte não mede tempo de abertura no computador do usuário. Sem teste de carga empresarial, dados reais ou integração ERP. Esses aceites permanecem explícitos.
+## Medição de desempenho
+
+50.000 vendas, 20 produtos, três repetições. Mediana Python (validação + análise): 144.62 ms. Mediana JS (criação do índice + análise de linhas previamente validadas): 38.03 ms. Bases equivalentes em tamanho, ordem de replicação diferente; não é comparação direta entre linguagens.
+
+Payload didático: 580548 bytes. Payload diário: 3038792 bytes. São dados explícitos, sem dependência de servidor/API. A carga inicial é maior que na v4.4; não foi medido tempo de renderização real nem Core Web Vitals. Medição reproduzível em `benchmark.py`; resultado em `performance_v4_5.json`. A medição v4.3.1 é histórica.
+
+## Limites explícitos
+
+Não houve teste nativo Windows, inspeção visual em navegador, dispositivo móvel real, PDF impresso real, auditoria WCAG, avaliação humana de LLM, arquivo ERP real ou teste concorrente de carga. DOM não valida espaçamento, calendário nativo, leitor de tela ou permissão real de clipboard. Não há alegação de homologação operacional.
+
+Reprodução: `python verificar.py` com Node disponível. Para DOM, disponibilize linkedom 0.18.12 e configure `GUARDIAN_DOM_MODULE`. Produção não precisa dessas dependências.

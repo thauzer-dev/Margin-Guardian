@@ -12,6 +12,8 @@ import unittest
 from pathlib import Path
 
 from build import build, write_manifest
+from guardian import __version__
+from guardian.narrative import PRIORITY
 
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "tests"))
@@ -35,7 +37,8 @@ def main():
     result = unittest.TextTestRunner(verbosity=1).run(suite)
     if not result.wasSuccessful():
         raise SystemExit(1)
-    subprocess.run(["node", "--check", "dist/app.js"], cwd=ROOT, check=True)
+    for script in (ROOT / "dist").glob("*.js"):
+        subprocess.run(["node", "--check", str(script)], cwd=ROOT, check=True)
     ai = evaluate()
     snap = json.loads(
         (ROOT / "dist/demo-data.js").read_text(encoding="utf-8").split("=", 1)[1].rstrip(";\n")
@@ -45,11 +48,16 @@ def main():
     parity = snap["snapshot_period_count"] * (len(cats) + 1) * 3
     dom = None
     if os.environ.get("GUARDIAN_DOM_MODULE") or (ROOT / "node_modules/linkedom").exists():
-        out = subprocess.run(["node", "tests/ui_dom.cjs"], cwd=ROOT, capture_output=True, text=True, encoding="utf-8")
-        if out.returncode:
-            raise SystemExit("Verificações de DOM falharam:\n" + out.stdout + out.stderr)
-        dom = out.stdout.count("OK ")
+        dom = 0
+        for script in ["tests/ui_dom.cjs", "tests/ui_revision45.cjs"]:
+            out = subprocess.run(["node", script], cwd=ROOT, capture_output=True, text=True, encoding="utf-8")
+            if out.returncode:
+                raise SystemExit("Verificações de DOM falharam:\n" + out.stdout + out.stderr)
+            dom += out.stdout.count("OK ")
     report = dict(
+        version=__version__,
+        diagnostic_fact_types=len(PRIORITY),
+        interactive_barrier_cases=6,
         date=datetime.date.today().isoformat(),
         python=platform.python_version(),
         platform=platform.system(),
@@ -62,6 +70,11 @@ def main():
         range_sku_pairs=len(RANGES)*len(snap["raw"]["products"]),
         filtered_decomposition_scenarios=len(RANGES)*3*3*2,
         payload_bytes=(ROOT / "dist/demo-data.js").stat().st_size,
+        daily_payload_bytes=(ROOT / "dist/daily-data.js").stat().st_size,
+        default_dataset="synthetic-daily-v1",
+        daily_parity_skus=20,
+        import_and_insight_node_checks=15,
+        real_data_validation=False,
         ai_fixtures=len(ai["cases"]),
         prepared_ai_samples=len(json.loads((ROOT / "reports/ai_provenance.json").read_text(encoding="utf-8"))["prepared_verified"]),
         native_windows_test=False,
