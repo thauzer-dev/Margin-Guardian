@@ -1,0 +1,6 @@
+Demonstração pública:
+https://margin-guardian-simplificado-thz.thauzerdark.chatgpt.site
+
+No computador: extraia todo o ZIP e abra ABRIR_DEMONSTRACAO.html.
+
+Atenção: este link aponta para a v4.1. Republique a pasta dist (v4.2) em hospedagem estática e atualize esta linha antes de enviar.

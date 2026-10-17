@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-14",
+  "python": "3.12.14",
+  "platform": "Linux",
+  "tests": 82,
+  "passed": true,
+  "seconds": 4.653,
+  "simulation_vectors": 16,
+  "aggregate_parity_scenarios": 105,
+  "custom_date_ranges": 10,
+  "range_sku_pairs": 200,
+  "filtered_decomposition_scenarios": 180,
+  "payload_bytes": 578083,
+  "ai_fixtures": 12,
+  "prepared_ai_samples": 3,
+  "native_windows_test": false,
+  "browser_visual_test": false,
+  "dom_checks": 32
+}

@@ -1,0 +1,11 @@
+{
+  "prompt_version": "evidence-enums-v1",
+  "prepared_verified": [
+    "SKU-001|2026-10|cost",
+    "SKU-006|2026-10|cost",
+    "SKU-013|2026-10|negative"
+  ],
+  "mode": "offline-prepared",
+  "live_api": false,
+  "dataset_hash": "73fa32ff6634331a4b9c1ccc33ad5b03a65b9c99410433fe23779f0a86d41477"
+}

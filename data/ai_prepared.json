@@ -1,0 +1,8 @@
+{
+ "provenance":{"author":"ChatGPT/Codex, sessão de construção em 13/10/2026","method":"Respostas estruturadas produzidas previamente pelo assistente sobre as histórias sintéticas H1/H4/H6; o build valida os IDs, período e relação autorizada.","live_api":false,"prompt_version":"evidence-enums-v1"},
+ "responses":[
+  {"fact_id":"SKU-001|2026-10|cost","period":"2026-10","insight_type":"cost_pressure","hypothesis":"coincidence","action_code":"review_purchase","caveat":"scenario_not_forecast"},
+  {"fact_id":"SKU-006|2026-10|cost","period":"2026-10","insight_type":"cost_pressure","hypothesis":"coincidence","action_code":"review_purchase","caveat":"scenario_not_forecast"},
+  {"fact_id":"SKU-013|2026-10|negative","period":"2026-10","insight_type":"negative_margin","hypothesis":"recorded_result","action_code":"simulate_price","caveat":"scenario_not_forecast"}
+ ]
+}

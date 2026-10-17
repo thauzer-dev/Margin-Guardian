@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-14",
+  "python": "3.12.14",
+  "platform": "Linux",
+  "repetitions": 3,
+  "baseline_commit": "eec843a8a6ccbac498751ab0128de3d1758b105d",
+  "baseline_version": "4.3",
+  "updated_version": "4.3.1",
+  "window": [
+    "2026-01-01",
+    "2026-10-14"
+  ],
+  "window_end_exclusive": true,
+  "measures": [
+    {
+      "sales": 2580,
+      "products": 20,
+      "before_seconds": [
+        0.02025708600001508,
+        0.020865164000014147,
+        0.019982333000001518
+      ],
+      "after_seconds": [
+        0.01183867800000371,
+        0.011173705000032896,
+        0.010441220999950929
+      ],
+      "before_median_seconds": 0.02025708600001508,
+      "after_median_seconds": 0.011173705000032896,
+      "speedup": 1.8129247192364073,
+      "financial_outputs_equal": true,
+      "financial_signature_sha256": "3607fc9e90117c54ba7642696732e611f45a95ee7cc17a18325f868c0eb87878"
+    },
+    {
+      "sales": 50000,
+      "products": 20,
+      "before_seconds": [
+        0.5511207179999928,
+        0.6571228530000042,
+        0.6469593340000017
+      ],
+      "after_seconds": [
+        0.25872873899993465,
+        0.3159684129999505,
+        0.27910934700003054
+      ],
+      "before_median_seconds": 0.6469593340000017,
+      "after_median_seconds": 0.27910934700003054,
+      "speedup": 2.3179422006240835,
+      "financial_outputs_equal": true,
+      "financial_signature_sha256": "92917fdfbc104a6ffaaa1609aea9e3f331bf24bcde5e7075710d740e86096559"
+    }
+  ],
+  "limitations": "Sequential runs on same Linux environment; synthetic repeated sales with unique IDs, 20 SKUs, 440 purchases; no browser startup, no concurrency or 500k test. Timings are observations, not guarantees."
+}

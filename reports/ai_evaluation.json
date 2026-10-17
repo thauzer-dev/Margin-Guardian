@@ -1,0 +1,259 @@
+{
+  "kind": "Avaliação controlada com respostas simuladas, não benchmark de um provedor",
+  "cases": [
+    {
+      "case": "válido",
+      "mode": "verified",
+      "response": {
+        "fact_id": "SKU-001|2026-10|target",
+        "period": "2026-10",
+        "insight_type": "below_target",
+        "hypothesis": "target_gap",
+        "action_code": "simulate_price",
+        "caveat": "scenario_not_forecast"
+      },
+      "attempts": [
+        {
+          "accepted": true,
+          "reason": "Esquema e evidências válidos"
+        }
+      ]
+    },
+    {
+      "case": "ID inexistente",
+      "mode": "rules",
+      "response": {
+        "fact_id": "SKU-001|2026-10|target",
+        "period": "2026-10",
+        "insight_type": "below_target",
+        "hypothesis": "target_gap",
+        "action_code": "simulate_price",
+        "caveat": "scenario_not_forecast"
+      },
+      "attempts": [
+        {
+          "accepted": false,
+          "reason": "ID de evidência inexistente"
+        },
+        {
+          "accepted": false,
+          "reason": "ID de evidência inexistente"
+        }
+      ]
+    },
+    {
+      "case": "período errado",
+      "mode": "rules",
+      "response": {
+        "fact_id": "SKU-001|2026-10|target",
+        "period": "2026-10",
+        "insight_type": "below_target",
+        "hypothesis": "target_gap",
+        "action_code": "simulate_price",
+        "caveat": "scenario_not_forecast"
+      },
+      "attempts": [
+        {
+          "accepted": false,
+          "reason": "Referência temporal incorreta"
+        },
+        {
+          "accepted": false,
+          "reason": "Referência temporal incorreta"
+        }
+      ]
+    },
+    {
+      "case": "ação contraditória",
+      "mode": "rules",
+      "response": {
+        "fact_id": "SKU-001|2026-10|target",
+        "period": "2026-10",
+        "insight_type": "below_target",
+        "hypothesis": "target_gap",
+        "action_code": "simulate_price",
+        "caveat": "scenario_not_forecast"
+      },
+      "attempts": [
+        {
+          "accepted": false,
+          "reason": "Relação semântica, causalidade ou ação não autorizada"
+        },
+        {
+          "accepted": false,
+          "reason": "Relação semântica, causalidade ou ação não autorizada"
+        }
+      ]
+    },
+    {
+      "case": "causalidade excessiva",
+      "mode": "rules",
+      "response": {
+        "fact_id": "SKU-001|2026-10|target",
+        "period": "2026-10",
+        "insight_type": "below_target",
+        "hypothesis": "target_gap",
+        "action_code": "simulate_price",
+        "caveat": "scenario_not_forecast"
+      },
+      "attempts": [
+        {
+          "accepted": false,
+          "reason": "Relação semântica, causalidade ou ação não autorizada"
+        },
+        {
+          "accepted": false,
+          "reason": "Relação semântica, causalidade ou ação não autorizada"
+        }
+      ]
+    },
+    {
+      "case": "número inventado",
+      "mode": "rules",
+      "response": {
+        "fact_id": "SKU-001|2026-10|target",
+        "period": "2026-10",
+        "insight_type": "below_target",
+        "hypothesis": "target_gap",
+        "action_code": "simulate_price",
+        "caveat": "scenario_not_forecast"
+      },
+      "attempts": [
+        {
+          "accepted": false,
+          "reason": "Esquema inválido ou números/prosa não autorizados"
+        },
+        {
+          "accepted": false,
+          "reason": "Esquema inválido ou números/prosa não autorizados"
+        }
+      ]
+    },
+    {
+      "case": "tipo trocado",
+      "mode": "rules",
+      "response": {
+        "fact_id": "SKU-001|2026-10|target",
+        "period": "2026-10",
+        "insight_type": "below_target",
+        "hypothesis": "target_gap",
+        "action_code": "simulate_price",
+        "caveat": "scenario_not_forecast"
+      },
+      "attempts": [
+        {
+          "accepted": false,
+          "reason": "Relação semântica, causalidade ou ação não autorizada"
+        },
+        {
+          "accepted": false,
+          "reason": "Relação semântica, causalidade ou ação não autorizada"
+        }
+      ]
+    },
+    {
+      "case": "ressalva falsa",
+      "mode": "rules",
+      "response": {
+        "fact_id": "SKU-001|2026-10|target",
+        "period": "2026-10",
+        "insight_type": "below_target",
+        "hypothesis": "target_gap",
+        "action_code": "simulate_price",
+        "caveat": "scenario_not_forecast"
+      },
+      "attempts": [
+        {
+          "accepted": false,
+          "reason": "Ressalva obrigatória ausente"
+        },
+        {
+          "accepted": false,
+          "reason": "Ressalva obrigatória ausente"
+        }
+      ]
+    },
+    {
+      "case": "esquema ausente",
+      "mode": "rules",
+      "response": {
+        "fact_id": "SKU-001|2026-10|target",
+        "period": "2026-10",
+        "insight_type": "below_target",
+        "hypothesis": "target_gap",
+        "action_code": "simulate_price",
+        "caveat": "scenario_not_forecast"
+      },
+      "attempts": [
+        {
+          "accepted": false,
+          "reason": "Esquema inválido ou números/prosa não autorizados"
+        },
+        {
+          "accepted": false,
+          "reason": "Esquema inválido ou números/prosa não autorizados"
+        }
+      ]
+    },
+    {
+      "case": "campo não textual",
+      "mode": "rules",
+      "response": {
+        "fact_id": "SKU-001|2026-10|target",
+        "period": "2026-10",
+        "insight_type": "below_target",
+        "hypothesis": "target_gap",
+        "action_code": "simulate_price",
+        "caveat": "scenario_not_forecast"
+      },
+      "attempts": [
+        {
+          "accepted": false,
+          "reason": "Campos devem conter códigos textuais"
+        },
+        {
+          "accepted": false,
+          "reason": "Campos devem conter códigos textuais"
+        }
+      ]
+    },
+    {
+      "case": "correção na segunda tentativa",
+      "mode": "verified",
+      "response": {
+        "fact_id": "SKU-001|2026-10|target",
+        "period": "2026-10",
+        "insight_type": "below_target",
+        "hypothesis": "target_gap",
+        "action_code": "simulate_price",
+        "caveat": "scenario_not_forecast"
+      },
+      "attempts": [
+        {
+          "accepted": false,
+          "reason": "Esquema inválido ou números/prosa não autorizados"
+        },
+        {
+          "accepted": true,
+          "reason": "Esquema e evidências válidos"
+        }
+      ]
+    },
+    {
+      "case": "sem dados",
+      "mode": "quality",
+      "response": null,
+      "attempts": [
+        {
+          "accepted": false,
+          "reason": "Sem evidência financeira elegível"
+        }
+      ]
+    }
+  ],
+  "first_pass": 1,
+  "retry_pass": 1,
+  "fallback": 9,
+  "quality": 1,
+  "invented_number_rejected": true
+}

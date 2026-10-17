@@ -1,283 +1,90 @@
+# Margin Guardian AI — Simplificado v4.3.1
 
-<div align="center">
+Painel executivo, diagnóstico e simulador de margem. Dados fictícios, execução local ou hospedagem estática, sem instalar bibliotecas para usar.
 
-# 🛡️ Margin Guardian AI
+## Abrir no Windows
 
-### Inteligência de Rentabilidade & Suporte à Decisão
+1. Extraia **todo o ZIP** para uma pasta.
+2. Abra `ABRIR_DEMONSTRACAO.html` com Edge, Chrome ou Firefox, ou clique em `iniciar_windows.bat`.
+3. Mantenha a pasta `dist` junto dos iniciadores. Não execute dentro do ZIP.
 
-**Dados → Diagnóstico → Simulação → Decisão**
+O iniciador abre um HTML pronto: não baixa pacotes e não exige Python. Se a associação de HTML do Windows não abrir o navegador, use botão direito → Abrir com. Não foi feito teste nativo no seu Windows; não há diagnóstico confirmado da falha antiga.
 
-Plataforma de análise e proteção de margens que transforma indicadores financeiros em diagnósticos acionáveis, permitindo compreender desvios de rentabilidade, identificar riscos e avaliar o impacto de decisões comerciais.
+Demo publicada: https://margin-guardian-simplificado-thz.thauzerdark.chatgpt.site
 
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css&logoColor=white)
-![Analytics](https://img.shields.io/badge/Business-Analytics-087E8B?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-MVP-2EA44F?style=for-the-badge)
+## Revisão técnica v4.3.1
 
-**Projeto desenvolvido para o GoHacks Talent — GoGroup**
+- Limiar de custo alinhado ao alerta configurado nos motores Python e JavaScript.
+- Diagnóstico principal com prioridade explícita; fatos complementares também visíveis.
+- Integridade global de compras, inclusive IDs repetidos entre SKUs e datas.
+- Severidade considera o prejuízo bruto quando a meta falta ou cobre apenas parte das vendas.
+- Índices de vendas, compras e vigências de metas; ordenação cronológica das evidências.
+- Regravação UTF-8, verificação de Host/origem no servidor opcional e novas regressões.
 
-</div>
+Parecer completo, ressalvas e benchmark: `docs/AUDITORIA_V4_3_1.md`.
 
----
+## Recursos da interface
 
-## 📌 Sobre o projeto
+- Novo painel executivo claro, navegação horizontal, azul-petróleo e verde; cores consistentes para atual / 3M / ano anterior.
+- Intervalo **Entre**, com data inicial e final inclusivas, de 01/01/2025 a 13/10/2026. Pode usar dias avulsos. Datas inválidas não alteram a última análise válida.
+- Busca por nome ou SKU, sem distinguir maiúsculas nem acentos, com sugestões dependentes da categoria, tipo e período. Digitar procura; clicar ou Enter seleciona.
+- Botões **Essencial** e **Especial**, exclusivos. Clique novamente no ativo para voltar a todos. Sem botão ativo = todos os tipos.
+- Filtros compartilhados entre as três abas e preservados durante a sessão. SKU incompatível com novo recorte é removido com aviso.
+- Atual, 3M e ano anterior visíveis juntos; decomposição preço/custo/mix passa a respeitar os filtros.
+- Histórico fictício ampliado, preservando as vendas originais de abril–outubro/2026.
+- Intervalos personalizados recalculam evidências e textos de regras. As três amostras preparadas de IA só aparecem no intervalo ao qual pertencem.
+- Payload da interface sem snapshots mensais duplicados; processamento local com índice por SKU e cache limitado.
 
-O **Margin Guardian AI** é uma solução de inteligência de rentabilidade desenvolvida para apoiar empresas na análise de margens, custos, receitas e riscos comerciais.
+## Regras dos comparativos
 
-O projeto parte de um problema recorrente nas organizações: **identificar uma queda na margem não significa compreender sua causa ou saber como corrigi-la.**
+- **Atual:** data inicial até final, ambas inclusivas.
+- **3M:** três meses civis completos antes do mês da data inicial. Para 08/09 a 08/10/2026, é 01/06 a 31/08/2026. É um total de três meses, não média mensal.
+- **Ano anterior:** as duas datas inclusivas deslocadas em um ano; 29/02 vira 28/02 quando necessário. Mesmos produtos filtrados.
+- Referência sem cobertura de toda a janela fica indisponível. Não se preenche história ausente.
+- Margem e variação em pontos percentuais podem ser comparadas entre janelas de diferentes durações, considerando a composição. Percentual de crescimento de receita só aparece para ano anterior com igual número de dias e receita-base positiva. Não mede crescimento de períodos equivalentes em dias úteis.
 
-Mais do que apresentar indicadores, a plataforma conecta análises financeiras, diagnósticos explicáveis e simulações para apoiar decisões fundamentadas em dados.
+Detalhes funcionais e decisões: `docs/GUIA_V4_3.md`. O guia funcional da v4.3 permanece válido; esta revisão está detalhada no parecer v4.3.1.
 
-Seu funcionamento está organizado em três experiências complementares:
+## Três abas
 
-- **Visão Executiva:** entender o desempenho do negócio.
-- **Diagnóstico Inteligente:** investigar desvios e identificar fatores relevantes.
-- **Simulador Estratégico:** testar alternativas antes de tomar decisões.
+**Executivo:** receita disponível, margem ponderada, lucro bruto elegível, gaps, cobertura, comparativos simultâneos, decomposição e ranking de investigação.
 
-> **Objetivo:** transformar informações financeiras em decisões comerciais mais rápidas, transparentes e orientadas à rentabilidade.
+**Diagnóstico:** foco em um SKU dentro do recorte global, contexto histórico, narrativas identificadas, fórmulas, registros de origem e compras comparáveis. “Trocar produto” muda o foco da investigação e do simulador; não substitui o filtro global da carteira.
 
----
+**Simulador:** mesmo produto em foco, preço/CMV unitários médios, meta bruta ou pós-comissão, volume e sensibilidades; cópia do cenário. Os cartões históricos mostram realizado. A tabela de cenários mostra hipóteses. Alterar filtros reinicia premissas; alternar abas preserva as premissas desta sessão.
 
-## 🎯 O problema
+## IA: opção adotada
 
-Empresas lidam diariamente com variações de custos, preços, comissões, volume de vendas e margens de contribuição.
+Motor determinístico + explicação limitada a evidências. Três respostas JSON produzidas anteriormente com apoio do assistente, validadas e rotuladas. Nos demais recortes, texto automático de regras. Não há LLM ao vivo, aprendizado automático, chave de API nem envio de dados a provedores. A miniavaliação de 12 fixtures testa a barreira, não a precisão de um LLM comercial.
 
-Entretanto, essas informações frequentemente são analisadas de forma isolada, dificultando respostas a perguntas como:
+## Desenvolver e verificar
 
-- Por que a margem diminuiu?
-- Quais produtos ou categorias estão comprometendo o resultado?
-- Quanto uma alteração de custo impacta a rentabilidade?
-- Qual seria o efeito de reajustar preços ou comissões?
-- Quais oportunidades merecem atenção prioritária?
+Python 3.10+; Node 18+ somente para testes JS. Nenhuma dependência Python de produção.
 
-O Margin Guardian foi desenvolvido para aproximar essas respostas de uma experiência analítica simples e acessível.
-
----
-
-## 🚀 Funcionalidades
-
-### 📊 01. Visão Executiva
-
-Uma visão consolidada da saúde financeira e comercial do negócio.
-
-**Principais recursos:**
-
-- Indicadores de receita, custos, lucro e margem.
-- Comparativos históricos de desempenho.
-- Evolução temporal e identificação de tendências.
-- Análises por período, produto e categoria.
-- Visualizações interativas e indicadores de variação.
-- Destaque para riscos e oportunidades de rentabilidade.
-
-**Resultado:** uma leitura rápida e contextualizada do desempenho operacional.
-
-### 🔎 02. Diagnóstico Inteligente
-
-Uma camada analítica dedicada à investigação das causas dos desvios de rentabilidade.
-
-**Principais recursos:**
-
-- Identificação de variações relevantes de margem.
-- Investigação de impactos de preço, custo e volume.
-- Análises por produtos e categorias.
-- Visualizações de contribuição e concentração.
-- Priorização de itens com maior impacto financeiro.
-- Explicações orientadas por evidências e regras analíticas.
-
-**Resultado:** compreender não apenas o que mudou, mas quais fatores contribuíram para o resultado.
-
-### 🧮 03. Simulador Estratégico
-
-Ambiente para experimentar cenários e avaliar alternativas comerciais.
-
-**Principais recursos:**
-
-- Simulação de alterações no preço de venda.
-- Ajustes de custo e CMV.
-- Modificação de comissões e quantidades.
-- Definição e análise de metas de margem.
-- Comparação entre cenários.
-- Recálculo dos indicadores financeiros.
-- Persistência local de cenários, quando aplicável.
-
-**Resultado:** antecipar impactos e apoiar decisões antes de sua aplicação no negócio.
-
----
-
-## 🧠 Inteligência e metodologia
-
-O Margin Guardian combina **cálculos financeiros, regras de negócio e análises determinísticas** para identificar comportamentos relevantes e produzir diagnósticos interpretáveis.
-
-A abordagem privilegia:
-
-- **Explicabilidade:** indicadores e diagnósticos fundamentados nos dados.
-- **Rastreabilidade:** resultados vinculados às variáveis utilizadas nos cálculos.
-- **Consistência:** regras financeiras padronizadas.
-- **Simulação:** análise de consequências antes da decisão.
-- **Usabilidade:** transformar complexidade analítica em uma experiência simples.
-
-**Nota técnica:** nesta versão, as explicações são fundamentadas em regras e evidências calculadas. O projeto não depende de um modelo de linguagem generativo em execução para produzir seus diagnósticos.
-
----
-
-## ⚙️ Tecnologias
-
-| Tecnologia | Aplicação |
-|---|---|
-| **Python** | Processamento, regras financeiras e serviços de análise |
-| **JavaScript** | Interatividade, simulações e atualização das visualizações |
-| **HTML5** | Estrutura da interface |
-| **CSS3** | Estilização, responsividade e experiência visual |
-| **CSV** | Importação e exportação de dados |
-| **Git & GitHub** | Versionamento e documentação |
-
-### Conceitos aplicados
-
-`Business Intelligence` · `Data Analytics` · `Financial Analytics` · `Data Visualization` · `What-if Analysis` · `Decision Support` · `Rule-based Analytics`
-
----
-
-## 🔄 Fluxo analítico
-
-```text
-        DADOS FINANCEIROS
-                │
-                ▼
-       PREPARAÇÃO E VALIDAÇÃO
-                │
-                ▼
-       INDICADORES E MÉTRICAS
-                │
-                ▼
-        VISÃO EXECUTIVA
-                │
-                ▼
-       DIAGNÓSTICO ANALÍTICO
-                │
-                ▼
-       SIMULAÇÃO DE CENÁRIOS
-                │
-                ▼
-        TOMADA DE DECISÃO
+```bash
+python iniciar.py                 # servidor local opcional
+python iniciar.py --no-browser    # não abre navegador
+python build.py                   # gera a base fictícia e o payload
+python -m unittest discover -s tests -v
+python verificar.py               # testes e relatórios; requer Node
 ```
 
-A proposta é reduzir a distância entre identificar um problema, compreender suas possíveis causas e avaliar alternativas de ação.
+O servidor escuta somente em `127.0.0.1`, portas 8501–8520, com `/api/health` e `POST /api/simulate`. Centavos para preço/custo, pontos-base para meta/taxa e quantidade inteira. A interface usa JS no modo local e publicado. A API aceita a origem HTTP exata do Host local (`127.0.0.1:porta` ou `localhost:porta`). `Origin: null` é recusado; o HTML aberto como arquivo não precisa dessa API. Clientes locais sem cabeçalho Origin podem usá-la.
 
----
+Teste de eventos/DOM opcional: instale `linkedom@0.18.12` somente no ambiente de desenvolvimento e execute `node tests/ui_dom.cjs`. Para uma instalação externa, defina `GUARDIAN_DOM_MODULE` com seu caminho; `verificar.py` também reconhece essa variável. Isso não equivale a teste visual em navegador.
 
-## 📈 Indicadores de negócio
+Resultados reais em `reports/validation.json` e `reports/VALIDACAO.md`. A execução nativa Windows e a conferência visual de desktop/celular ainda precisam ser realizadas.
 
-A plataforma trabalha com indicadores relevantes para a gestão de rentabilidade:
+## Arquivos
 
-| Indicador | Finalidade |
-|---|---|
-| Receita | Acompanhar o desempenho comercial |
-| CMV | Avaliar os custos das mercadorias vendidas |
-| Lucro bruto | Medir resultados após os custos considerados |
-| Margem (%) | Monitorar a rentabilidade |
-| Variação de margem | Identificar alterações de desempenho |
-| Impacto financeiro | Quantificar efeitos de mudanças |
-| Meta de margem | Comparar resultados com objetivos |
-| Cenários | Avaliar consequências de decisões |
+- `guardian/`: validação, calendário, agregação, decomposição, simulador e contrato de narrativa.
+- `dist/engine.js`: cálculo de intervalos a partir dos registros validados pelo Python.
+- `dist/app.js`, `style.css`, `index.html`: interface pronta, sem build de frontend.
+- `data/`: base fictícia gerada e respostas preparadas de IA.
+- `tests/`: regressão financeira/API, paridade JS/Python e interações DOM.
+- `docs/`: guia, arquitetura, escopo e roteiro de apresentação.
+- `reports/`: validação e avaliação de IA reproduzíveis.
 
-As fórmulas e os componentes de custo utilizados devem ser interpretados conforme o escopo financeiro configurado na aplicação.
+## Limites
 
----
-
-## 🗂️ Dados e utilização
-
-O projeto utiliza dados demonstrativos para permitir a exploração das funcionalidades sem depender de sistemas empresariais externos.
-
-Também contempla recursos de importação de dados em CSV, conforme o formato e as validações suportados pela versão.
-
-As análises e simulações devem ser interpretadas considerando a qualidade e a abrangência das informações fornecidas.
-
-### Como explorar
-
-1. Abra a aplicação pelo arquivo de entrada disponibilizado no projeto.
-2. Explore os indicadores na **Visão Executiva**.
-3. Utilize o **Diagnóstico Inteligente** para investigar variações.
-4. Acesse o **Simulador Estratégico** para alterar variáveis financeiras.
-5. Compare os resultados e avalie possíveis alternativas.
-
-Para recursos que dependem dos serviços Python, utilize a configuração de execução indicada na documentação técnica do projeto.
-
----
-
-## 🧪 Validação e limitações
-
-O desenvolvimento contempla testes automatizados de regras e serviços analíticos, além de verificações dos cálculos e da consistência dos resultados.
-
-**Escopo atual:**
-
-- Protótipo/MVP demonstrativo.
-- Dados sintéticos e importação CSV.
-- Diagnósticos baseados em regras analíticas.
-- Simulações financeiras e comparações.
-- Visualizações e exportações disponíveis na aplicação.
-
-**Fora do escopo validado:**
-
-- Integração homologada com ERPs corporativos.
-- Previsões de demanda em ambiente produtivo.
-- IA generativa executada em tempo real.
-- Substituição de controles financeiros ou contábeis oficiais.
-
-O sistema foi concebido como ferramenta de apoio à decisão, não como substituto da análise profissional.
-
----
-
-## 🔭 Evoluções futuras
-
-Entre as possibilidades de evolução do produto estão:
-
-- Integrações com sistemas ERP e bancos de dados.
-- Processamento automatizado de novas informações.
-- Alertas proativos de deterioração de margem.
-- Modelos preditivos e detecção estatística de anomalias.
-- Recomendações contextualizadas com IA generativa.
-- Monitoramento contínuo da rentabilidade.
-
-Esses itens representam oportunidades de evolução, não funcionalidades homologadas do MVP.
-
----
-
-## 💡 Diferencial do projeto
-
-O Margin Guardian foi concebido para ir além de um dashboard tradicional.
-
-Sua proposta integra três etapas fundamentais do processo decisório:
-
-**Observar → Investigar → Simular**
-
-Em uma única experiência, o usuário pode acompanhar resultados, compreender fatores de impacto e experimentar alternativas.
-
-O foco está em tornar a inteligência financeira **mais acessível, explicável e aplicável às decisões reais do negócio**.
-
----
-
-## 👨‍💻 Desenvolvedor
-
-**Enzo Thauzer**
-
-Graduando em Ciência de Dados pela Universidade Federal do Ceará (UFC), com experiência em Business Intelligence, análise de dados, automação de processos e desenvolvimento de soluções orientadas a negócios.
-
-O Margin Guardian reúne conhecimentos aplicados de análise financeira, programação, visualização de dados e inteligência de negócios em uma solução demonstrativa.
-
-<div align="center">
-
-[![GitHub](https://img.shields.io/badge/GitHub-thauzer--dev-181717?style=for-the-badge&logo=github)](https://github.com/thauzer-dev)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Enzo_Thauzer-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/enzothauzer/)
-[![Portfolio](https://img.shields.io/badge/Portfólio-thauzer.tech-087E8B?style=for-the-badge&logo=googlechrome&logoColor=white)](https://thauzer.tech)
-
----
-
-**Margin Guardian AI**
-
-*Transformando dados financeiros em decisões mais inteligentes.*
-
-Desenvolvido por **Enzo Thauzer**.
-
-</div>
+2580 linhas de venda e 440 compras sintéticas, 20 SKUs, quatro categorias. Não importa seus arquivos nem se conecta a ERP. Sem autenticação, multiempresa, banco compartilhado, reajuste automático, previsão de demanda ou preço ótimo. Gap não é perda ou ganho garantido. Compra não reescreve CMV de venda. Resultado pós-canal não é lucro líquido. A extensão anterior a abril/2026 foi gerada só para demonstrar comparativos.

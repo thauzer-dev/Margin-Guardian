@@ -1,0 +1,25 @@
+MARGIN GUARDIAN AI — SIMPLIFICADO v4.3.1
+
+1. EXTRAIA TODO O ZIP para uma pasta.
+2. Abra ABRIR_DEMONSTRACAO.html no navegador.
+   Ou clique em iniciar_windows.bat.
+3. Não precisa instalar bibliotecas nem executar Python para usar a demo.
+
+Mantenha a pasta dist junto dos iniciadores. Não abra de dentro do ZIP.
+Se o HTML não abrir: botão direito -> Abrir com -> Edge, Chrome ou Firefox.
+
+REVISÃO: regras de alerta, integridade de compras, narrativas completas,
+severidade sem meta e desempenho.
+
+RECURSOS: datas Entre, busca de SKU, categoria em cascata, Essencial/Especial,
+filtros compartilhados e referências 3M/ano anterior sempre visíveis.
+
+DADOS FICTÍCIOS: 01/01/2025 a 13/10/2026. Sem importação de dados próprios.
+IA: amostras preparadas e regras verificáveis; nenhuma geração ao vivo.
+
+Detalhes: README.md, docs/GUIA_V4_3.md e docs/AUDITORIA_V4_3_1.md.
+Método e limites: dist/projeto.html.
+Python opcional: python iniciar.py.
+
+A execução nativa Windows e a aparência em seu navegador precisam ser
+conferidas no seu dispositivo; os testes de código estão em reports/.

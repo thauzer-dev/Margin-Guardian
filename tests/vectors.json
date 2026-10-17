@@ -1,0 +1,18 @@
+[
+ {"name":"margem bruta de 30%","input":{"p":15000,"c":10500,"q":10,"t":0,"m":3000,"goal":"gross"},"expected":{"gross_margin":0.3,"revenue":150000,"gross":45000,"reference_price":15000}},
+ {"name":"pós-canal de 20%","input":{"p":15000,"c":10500,"q":10,"t":1000,"m":2000,"goal":"channel"},"expected":{"channel_margin":0.2,"channel":30000}},
+ {"name":"meta bruta 40%","input":{"p":15000,"c":9000,"q":1,"t":0,"m":4000,"goal":"gross"},"expected":{"reference_price":15000}},
+ {"name":"meta pós-canal 40%","input":{"p":15000,"c":9000,"q":1,"t":1000,"m":4000,"goal":"channel"},"expected":{"reference_price":18000}},
+ {"name":"volume nulo","input":{"p":15000,"c":10500,"q":0,"t":1000,"m":3000,"goal":"gross"},"expected":{"revenue":0,"gross":0,"channel":0}},
+ {"name":"preço inválido","input":{"p":0,"c":10500,"q":1},"error":true},
+ {"name":"meta e taxa 100%","input":{"p":10000,"c":5000,"q":1,"t":5000,"m":5000,"goal":"channel"},"error":true},
+ {"name":"comissão não entra na meta bruta","input":{"p":10000,"c":5000,"q":1,"t":5000,"m":5000,"goal":"gross"},"expected":{"reference_price":10000}},
+ {"name":"volume negativo","input":{"p":10000,"c":5000,"q":-1},"error":true},
+ {"name":"custo negativo","input":{"p":10000,"c":-1,"q":1},"error":true},
+ {"name":"arredondamento comissão","input":{"p":101,"c":80,"q":1,"t":5000,"m":0},"expected":{"commission":51,"channel":-30}},
+ {"name":"teto do preço referência","input":{"p":100,"c":100,"q":1,"m":3333},"expected":{"reference_price":150}},
+ {"name":"quantidade fracionária recusada","input":{"p":10000,"c":5000,"q":1.5},"error":true},
+ {"name":"taxa inválida","input":{"p":10000,"c":5000,"q":1,"t":10000},"error":true},
+ {"name":"número booleano recusado","input":{"p":true,"c":0,"q":1},"error":true},
+ {"name":"meta inválida","input":{"p":10000,"c":5000,"q":1,"m":10000},"error":true}
+]
